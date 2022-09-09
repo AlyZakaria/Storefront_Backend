@@ -1,0 +1,46 @@
+{
+  "name": "storefront_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prettier": "prettier --config .prettierrc --write ./src/**/*.ts",
+    "lint": "eslint \"src/**/*.ts\" ",
+    "start": "nodemon src/server.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlyZakaria/Storefront_Backend.git"
+  },
+  "author": "Aly Zakaria",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlyZakaria/Storefront_Backend/issues"
+  },
+  "homepage": "https://github.com/AlyZakaria/Storefront_Backend#readme",
+  "dependencies": {
+    "@types/express": "^4.17.13",
+    "@types/jasmine": "^4.3.0",
+    "@types/jsonwebtoken": "^8.5.9",
+    "@types/node": "^18.7.16",
+    "@types/pg": "^8.6.5",
+    "@types/typescript": "^2.0.0",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "jasmine": "^4.4.0",
+    "jasmine-spec-reporter": "^7.0.0",
+    "jasmine-ts": "^0.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.8.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.23.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "node-ts": "^5.1.2",
+    "nodemon": "^2.0.19",
+    "prettier": "^2.7.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.3"
+  }
+}
