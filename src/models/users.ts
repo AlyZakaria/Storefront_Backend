@@ -5,6 +5,8 @@ import jwt from 'jsonwebtoken'
 interface user {
     username: string
     password: string
+    phone_number: Number
+    birth_date: Date
 }
 
 const saltRounds = process.env.SALT_ROUNDS
@@ -47,12 +49,17 @@ export default class userObject {
             throw e
         }
     }
-    async create(username: string, password: string): Promise<string> {
+    async create(
+        username: string,
+        password: string,
+        phone_number: number,
+        age: number
+    ): Promise<string> {
         try {
             const conn = await client.connect()
             const hash = bcrypt.hashSync(password + pepper, Number(saltRounds))
-            const query = `INSERT INTO users (username , password) Values 
-            ('${username}' , '${hash}') Returning *`
+            const query = `INSERT INTO users (username , password , phone_number , age) Values 
+            ('${username}' , '${hash}' , ${phone_number} , ${age}) Returning *`
             const newUser = await conn.query(query)
             conn.release()
             if (newUser.rows.length === 0) throw new Error()

@@ -53,9 +53,12 @@ export default class userHandler {
         next: express.NextFunction
     ) => {
         try {
+            
             const newUser = await user.create(
                 req.body.username,
-                req.body.password
+                req.body.password,
+                req.body.phone_number,
+                req.body.age 
             )
             res.json(newUser)
         } catch (e) {
