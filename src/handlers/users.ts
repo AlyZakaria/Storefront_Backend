@@ -53,16 +53,15 @@ export default class userHandler {
         next: express.NextFunction
     ) => {
         try {
-            
             const newUser = await user.create(
                 req.body.username,
                 req.body.password,
                 req.body.phone_number,
-                req.body.age 
+                req.body.age
             )
             res.json(newUser)
         } catch (e) {
-            console.log(e)
+            // console.log(e)
             res.send('Cannot create user')
         } finally {
             next()
