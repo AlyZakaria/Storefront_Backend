@@ -54,10 +54,9 @@ export default class userHandler {
     ) => {
         try {
             const newUser = await user.create(
-                req.body.username,
-                req.body.password,
-                req.body.phone_number,
-                req.body.age
+                req.body.firstName,
+                req.body.secondName,
+                req.body.password
             )
             res.json(newUser)
         } catch (e) {
@@ -65,6 +64,26 @@ export default class userHandler {
             res.send('Cannot create user')
         } finally {
             next()
+        }
+    }
+    authentication = async (
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    ) => {
+        try {
+            let firstName = req.body.firstName
+            let secondName = req.body.secondName
+            let password = req.body.password
+            const getUser = await user.authentication(
+                firstName,
+                secondName,
+                password
+            )
+            res.json(getUser)
+            next()
+        } catch (e) {
+            res.send('User Not Found')
         }
     }
 }

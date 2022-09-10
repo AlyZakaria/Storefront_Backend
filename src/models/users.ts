@@ -3,10 +3,10 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 interface user {
-    username: string
+    id: number
+    firstName: string
+    secondName: string
     password: string
-    phone_number: string
-    age: string
 }
 
 const saltRounds = process.env.SALT_ROUNDS
@@ -50,16 +50,15 @@ export default class userObject {
         }
     }
     async create(
-        username: string,
-        password: string,
-        phone_number: string,
-        age: string
+        firstName: string,
+        secondName: string,
+        password: string
     ): Promise<string> {
         try {
             const conn = await client.connect()
             const hash = bcrypt.hashSync(password + pepper, Number(saltRounds))
-            const query = `INSERT INTO users (username , password , phone_number , age) Values 
-            ('${username}' , '${hash}' , '${phone_number}' , ${age}) Returning *`
+            const query = `INSERT INTO users (firstname ,secondname, password) Values 
+            ('${firstName}' , '${secondName}', '${hash}' ) Returning *`
             const newUser = await conn.query(query)
             conn.release()
             if (newUser.rows.length === 0) throw new Error()
@@ -67,6 +66,30 @@ export default class userObject {
             return token
         } catch (e) {
             throw e
+        }
+    }
+    async authentication(
+        firstName: string,
+        secondName: string,
+        password: string
+    ): Promise<user | undefined> {
+        try {
+            const conn = await client.connect()
+            const query = `SELECT * FROM users 
+            WHERE firstname = '${firstName}' and secondname = '${secondName}';`
+            const getUser = await conn.query(query)
+            if (getUser.rows.length == 0) throw new Error()
+            else {
+                let user = getUser.rows;
+                // to find the person if the firstName & SecondName are similar
+                for(let i = 0; i < user.length; i++) {
+                    if (bcrypt.compareSync(password + pepper, user[i].password))
+                        return user[i];
+                }
+                 throw new Error()
+            }
+        } catch (error) {
+            throw error
         }
     }
 }
