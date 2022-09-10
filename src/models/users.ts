@@ -72,7 +72,7 @@ export default class userObject {
         firstName: string,
         secondName: string,
         password: string
-    ): Promise<user | undefined> {
+    ): Promise<string> {
         try {
             const conn = await client.connect()
             const query = `SELECT * FROM users 
@@ -84,7 +84,10 @@ export default class userObject {
                 // to find the person if the firstName & SecondName are similar
                 for(let i = 0; i < user.length; i++) {
                     if (bcrypt.compareSync(password + pepper, user[i].password))
-                        return user[i];
+                        {
+                            let token = jwt.sign(user[i], tokenSecret as string)
+                            return token;
+                        }
                 }
                  throw new Error()
             }
