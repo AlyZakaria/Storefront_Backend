@@ -23,7 +23,7 @@ const validate = (
 
 export default validate
 /*
- get this code from 
+Reference
 https://bobbyhadz.com/blog/javascript-check-if-string-contains-only-letters
 */
 function checkfirstName(firstName: string): boolean {

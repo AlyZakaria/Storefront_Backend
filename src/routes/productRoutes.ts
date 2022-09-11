@@ -9,6 +9,13 @@ const productRoutes = (app: express.Application) => {
     app.get('/products', productHandle.index)
     app.get('/products/:id', productHandle.show)
     app.post('/products', bodyParser.json(), verifyAuth, productHandle.create)
+    app.post(
+        '/products/:category',
+        bodyParser.json(),
+        verifyAuth,
+        productHandle.getProductsByCategory
+    )
+    app.get('/top-products', productHandle.getTopProducts)
 }
 
 export default productRoutes

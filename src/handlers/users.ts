@@ -14,7 +14,7 @@ export default class userHandler {
             res.json(users)
         } catch (e) {
             res.status(404)
-            res.send('Error')
+            res.send('No users Found')
         } finally {
             next()
         }
@@ -60,7 +60,6 @@ export default class userHandler {
             )
             res.json(newUser)
         } catch (e) {
-            // console.log(e)
             res.send('Cannot create user')
         } finally {
             next()

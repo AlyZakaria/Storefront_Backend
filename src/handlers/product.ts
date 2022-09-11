@@ -1,4 +1,3 @@
-import { Console } from 'console'
 import express from 'express'
 import productObject from '../models/product'
 
@@ -6,17 +5,17 @@ const product = new productObject()
 
 export default class productHandler {
     index = async (
-        req: express.Request,
+        _req: express.Request,
         res: express.Response,
         next: express.NextFunction
     ) => {
         try {
             const products = await product.index()
             res.json(products)
-            next()
         } catch (e) {
-            res.status(404)
-            res.send('Cannot find product')
+            res.send('No products found..')
+        } finally {
+            next()
         }
     }
     create = async (
@@ -52,6 +51,39 @@ export default class productHandler {
             res.json(getProduct)
         } catch (e) {
             res.send('Product Not found')
+        } finally {
+            next()
+        }
+    }
+    getProductsByCategory = async (
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    ) => {
+        try {
+            const getProducts = await product.getProductsByCategory(
+                req.params.category
+            )
+            //console.log(getProducts);
+            res.json(getProducts)
+        } catch (e) {
+            res.send('Product with this kind of category not found')
+        } finally {
+            next()
+        }
+    }
+    getTopProducts = async (
+        _req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    ) => {
+        try {
+            const getTopProducts = await product.getTopProducts()
+            res.json(getTopProducts)
+        } catch (e) {
+            res.send('Error while finding top products')
+        } finally {
+            next()
         }
     }
 }
