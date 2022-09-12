@@ -15,6 +15,12 @@ const productRoutes = (app: express.Application) => {
         verifyAuth,
         productHandle.getProductsByCategory
     )
+    app.put(
+        '/products/:id',
+        bodyParser.json(),
+        verifyAuth,
+        productHandle.update
+    )
     app.get('/top-products', productHandle.getTopProducts)
 }
 

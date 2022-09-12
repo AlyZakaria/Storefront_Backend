@@ -5,5 +5,12 @@
         "database" : "store_database",
         "user": "postgres",
         "password": "17a28s39d40f"
+    }, 
+    "test": {
+        "driver" : "pg",
+        "host": "localhost",
+        "database" : "storetest_database",
+        "user": "postgres",
+        "password": "17a28s39d40f"
     }
 }

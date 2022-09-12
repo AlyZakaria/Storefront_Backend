@@ -55,6 +55,29 @@ export default class productHandler {
             next()
         }
     }
+    update = async (
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    ) => {
+        try {
+            let id = Number(req.params.id)
+            let name = req.body.name
+            let price = req.body.price
+            let category = req.body.category
+            const updatedProduct = await product.update(
+                id,
+                name,
+                price,
+                category
+            )
+            res.json(updatedProduct)
+        } catch (e) {
+            res.send('product can not be updated')
+        } finally {
+            next()
+        }
+    }
     getProductsByCategory = async (
         req: express.Request,
         res: express.Response,

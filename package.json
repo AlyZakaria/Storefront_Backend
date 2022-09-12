@@ -6,6 +6,8 @@
   "scripts": {
     "prettier": "prettier --config .prettierrc --write ./src/**/*.ts",
     "lint": "eslint \"src/**/*.ts\" ",
+    "build": "npx tsc",
+    "test": "set ENV=test && db-migrate --env test up && npm run build &&  jasmine-ts",
     "start": "npm run prettier & nodemon src/server.ts"
   },
   "repository": {

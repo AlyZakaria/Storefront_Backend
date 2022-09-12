@@ -1,8 +1,8 @@
 import { isMapIterator } from 'util/types'
 import client from '../database'
 
-interface product {
-    id: number
+export interface product {
+    id?: number
     name: string
     price: number
     category?: string
@@ -55,12 +55,30 @@ class productObject {
             conn.release()
         }
     }
-
+    async update(
+        id: number,
+        name: string,
+        price: number,
+        category?: string
+    ): Promise<product> {
+        const conn = await client.connect()
+        try {
+            const query = `UPDATE products SET
+            name = '${name}', price = ${price}, category = '${category}'
+            WHERE id = ${id} RETURNING *;`
+            const getProduct = await conn.query(query)
+            return getProduct.rows[0]
+        } catch (e) {
+            throw e
+        } finally {
+            conn.release()
+        }
+    }
     // get the products by categories
     async getProductsByCategory(category: string): Promise<product[]> {
         const conn = await client.connect()
         try {
-            const query = `SELECT * FROM products WHERE category LIKE '${category}'`
+            const query = `SELECT * FROM products WHERE category LIKE '%${category}%'`
             const getProduct = await conn.query(query)
             if (!getProduct.rows.length) throw new Error()
             return getProduct.rows

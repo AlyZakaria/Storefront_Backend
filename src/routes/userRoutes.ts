@@ -16,6 +16,13 @@ const userRoutes = (app: express.Application) => {
         bodyParser.json(),
         userHandle.authentication
     )
+    app.put(
+        '/users/:id',
+        bodyParser.json(),
+        validate,
+        verifyAuth,
+        userHandle.update
+    )
 }
 
 export default userRoutes

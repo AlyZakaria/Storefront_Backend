@@ -2,10 +2,10 @@ import client from '../database'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
-interface user {
-    id: number
-    firstName: string
-    secondName: string
+export interface user {
+    id?: number
+    firstname: string
+    secondname: string
     password: string
 }
 
@@ -19,7 +19,6 @@ export default class userObject {
         try {
             const query = `SELECT * FROM users`
             const users = await conn.query(query)
-            if (!users.rows.length) throw new Error()
             return users.rows
         } catch (e) {
             throw e
@@ -57,21 +56,43 @@ export default class userObject {
         firstName: string,
         secondName: string,
         password: string
-    ): Promise<string> {
+    ): Promise<user> {
         const conn = await client.connect()
         try {
             const hash = bcrypt.hashSync(password + pepper, Number(saltRounds))
             const query = `INSERT INTO users (firstname ,secondname, password) Values 
             ('${firstName}' , '${secondName}', '${hash}' ) Returning *`
             const newUser = await conn.query(query)
-            let token = jwt.sign(newUser.rows[0], tokenSecret as string)
-            return token
+            return newUser.rows[0]
+        } catch (e) {
+            console.log(e)
+            throw e
+        } finally {
+            conn.release()
+        }
+    }
+    async update(
+        id: number,
+        firstName: string,
+        secondName: string,
+        password: string
+    ): Promise<user> {
+        const conn = await client.connect()
+        try {
+            const hash = bcrypt.hashSync(password + pepper, Number(saltRounds))
+            const query = `UPDATE users SET
+            firstname = '${firstName}',
+            secondname = '${secondName}', password = '${hash}'
+            WHERE id = ${id} RETURNING *;`
+            const updatedUser = await conn.query(query)
+            return updatedUser.rows[0]
         } catch (e) {
             throw e
         } finally {
             conn.release()
         }
     }
+
     async authentication(
         firstName: string,
         secondName: string,
@@ -88,7 +109,6 @@ export default class userObject {
             if (getUser.rows.length == 0) throw new Error()
             else {
                 let users = getUser.rows
-                // to find the person if the firstName & SecondName are similar
                 return this.getPerson(users, password)
             }
         } catch (error) {

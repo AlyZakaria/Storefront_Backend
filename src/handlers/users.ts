@@ -1,6 +1,8 @@
 import express from 'express'
 import userObject from '../models/users'
+import jwt from 'jsonwebtoken'
 
+const tokenSecret = process.env.TOKEN
 const user = new userObject()
 
 export default class userHandler {
@@ -26,7 +28,8 @@ export default class userHandler {
     ) => {
         try {
             const getUser = await user.show(Number(req.params.id))
-            res.json(getUser)
+            let token = jwt.sign(getUser, tokenSecret as string)
+            res.json(token)
         } catch (e) {
             res.send('User not found..')
         } finally {
@@ -61,6 +64,29 @@ export default class userHandler {
             res.json(newUser)
         } catch (e) {
             res.send('Cannot create user')
+        } finally {
+            next()
+        }
+    }
+    update = async (
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+    ) => {
+        try {
+            let id = Number(req.params.id)
+            let firstName = req.body.firstName
+            let secondName = req.body.secondName
+            let password = req.body.password
+            const updatedUser = await user.update(
+                id,
+                firstName,
+                secondName,
+                password
+            )
+            res.json(updatedUser)
+        } catch (e) {
+            res.send('Cannot update user')
         } finally {
             next()
         }

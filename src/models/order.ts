@@ -1,7 +1,7 @@
 import client from '../database'
 
-interface order {
-    id: number
+export interface order {
+    id?: number
     status: string
     user_id: string
 }
@@ -25,7 +25,6 @@ class orderObject {
         try {
             const query = `SELECT * FROM orders where id = ${id};`
             const getOrder = await conn.query(query)
-            if (!getOrder.rows.length) throw new Error()
             return getOrder.rows[0]
         } catch (e) {
             throw e
@@ -52,7 +51,6 @@ class orderObject {
             const query = `INSERT INTO orders (status , user_id) VALUES 
             ('${status}' , ${user_id}) RETURNING *;`
             const newOrder = await conn.query(query)
-            console.log(newOrder.rows)
             return newOrder.rows[0]
         } catch (e) {
             throw e
