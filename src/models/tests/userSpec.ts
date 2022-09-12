@@ -73,6 +73,7 @@ describe('Testing users-table', async () => {
         expect(getUsers.length).toBe(0)
     })
 
+    // to delete all data in database
     afterAll(async () => {
         try {
             const conn = await client.connect()

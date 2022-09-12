@@ -157,7 +157,8 @@ describe('Testing order-products-table', () => {
         expect(Number(getOrders[0].order_id)).toBe(productOrder.order_id)
         expect(getOrders[0].quantity).toBe(productOrder.quantity)
     })
-    
+
+    // to delete all data in database
     afterAll(async () => {
         try {
             const conn = await client.connect()

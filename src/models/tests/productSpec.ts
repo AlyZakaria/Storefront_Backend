@@ -55,6 +55,7 @@ describe('Testing Product-table', () => {
         expect(updatedProduct.price).toBe(product.price)
     })
 
+    // to delete all data in database
     afterAll(async () => {
         try {
             const conn = await client.connect()
