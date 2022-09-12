@@ -9,7 +9,7 @@ const orderHandle = new orderHandler()
 const orderRoutes = (app: express.Application) => {
     app.get('/orders', verifyAuth, orderHandle.index)
     app.get('/orders/:id', verifyAuth, orderHandle.show)
-    app.delete('/orders/:id', orderHandle.delete)
+    app.delete('/orders/:id', verifyAuth ,orderHandle.delete)
 
     // verify user => to check that user_id in body is same in token
     app.post(
@@ -28,7 +28,7 @@ const orderRoutes = (app: express.Application) => {
         orderHandle.addProduct
     )
 
-    app.get('/users/:user_id/orders', orderHandle.currentOrderByUser)
+    app.get('/users/:user_id/orders',orderHandle.currentOrderByUser)
 }
 
 export default orderRoutes
