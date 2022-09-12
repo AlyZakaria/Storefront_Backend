@@ -5,3 +5,6 @@
 
 #ignore node_modules files
 node_modules
+
+#ignore build file
+build
