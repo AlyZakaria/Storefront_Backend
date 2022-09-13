@@ -22,6 +22,6 @@
 #### 6- server listen on port 3000
         -> localhost:3000
 ## For Testing
-#### To test every action happened to database
+#### To test every action happened to database & test every endpoint action
     npm run test 
 
