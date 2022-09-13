@@ -9,11 +9,11 @@
 6. authenticate -> ***/users/authentication*** [POST]
 
 ### Products
-1. index -> ***/products*** [GET]
-2. show -> ***/products/:id*** [GET]
+1. index [TOKEN NEED]-> ***/products*** [GET]
+2. show [TOKEN NEED]-> ***/products/:id*** [GET]
 3. create -> ***/products*** [POST]
-4. update -> ***/products/:id*** [PUT]
-5. getProductsByCategory -> ***/products/:category*** [POST]
+4. update [TOKEN NEED]-> ***/products/:id*** [PUT]
+5. getProductsByCategory [TOKEN NEED]-> ***/products/:category*** [POST]
 6. getTopProducts -> ***/top-products*** [GET]
 
 ### Orders
@@ -22,7 +22,7 @@
 3. delete [TOKEN NEED] -> ***/orders/:id*** [DELETE]
 4. create [TOKEN NEED] -> ***/orders*** [POST]
 5. addProduct [TOKEN NEED] -> ***/orders/:id/products*** [POST]
-6. currentOrderByUser -> ***/users/:user_id/orders*** [GET]
+6. currentOrderByUser [TOKEN NEED]-> ***/users/:user_id/orders*** [GET]
 
 ## Data Shapes
 ### Users 
