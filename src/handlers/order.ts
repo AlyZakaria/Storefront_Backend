@@ -42,6 +42,7 @@ class orderHandler {
             res.json(deletedOrder)
             next()
         } catch (e) {
+            res.status(404)
             res.send('Order not Found..')
         }
     }

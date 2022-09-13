@@ -37,7 +37,7 @@ class orderObject {
         try {
             const query = `DELETE FROM orders WHERE id = ${id} RETURNING *;`
             const deletedOrder = await conn.query(query)
-            if (deletedOrder.rows.length === 0) throw new Error()
+            if (!deletedOrder.rows.length) throw new Error()
             return deletedOrder.rows[0]
         } catch (e) {
             throw e

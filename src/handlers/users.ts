@@ -28,8 +28,7 @@ export default class userHandler {
     ) => {
         try {
             const getUser = await user.show(Number(req.params.id))
-            let token = jwt.sign(getUser, tokenSecret as string)
-            res.json(token)
+            res.json(getUser)
         } catch (e) {
             res.send('User not found..')
         } finally {
@@ -57,11 +56,12 @@ export default class userHandler {
     ) => {
         try {
             const newUser = await user.create(
-                req.body.firstName,
-                req.body.secondName,
+                req.body.firstname,
+                req.body.secondname,
                 req.body.password
             )
-            res.json(newUser)
+            let token = jwt.sign(newUser, tokenSecret as string)
+            res.json(token)
         } catch (e) {
             res.send('Cannot create user')
         } finally {
@@ -75,13 +75,13 @@ export default class userHandler {
     ) => {
         try {
             let id = Number(req.params.id)
-            let firstName = req.body.firstName
-            let secondName = req.body.secondName
+            let firstname = req.body.firstname
+            let secondname = req.body.secondname
             let password = req.body.password
             const updatedUser = await user.update(
                 id,
-                firstName,
-                secondName,
+                firstname,
+                secondname,
                 password
             )
             res.json(updatedUser)
@@ -97,14 +97,15 @@ export default class userHandler {
         next: express.NextFunction
     ) => {
         try {
-            let firstName = req.body.firstName
-            let secondName = req.body.secondName
+            let firstname = req.body.firstname
+            let secondname = req.body.secondname
             let password = req.body.password
             const getUser = await user.authentication(
-                firstName,
-                secondName,
+                firstname,
+                secondname,
                 password
             )
+            // console.log(getUser)
             res.json(getUser)
             next()
         } catch (e) {

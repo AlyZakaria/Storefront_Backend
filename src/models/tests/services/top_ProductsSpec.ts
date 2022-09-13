@@ -1,10 +1,10 @@
-import orderObject from '../order'
-import { order } from '../order'
-import userObject from '../users'
-import { user } from '../users'
-import client from '../../database'
-import productObject from '../product'
-import { product } from '../product'
+import orderObject from '../../order'
+import { order } from '../../order'
+import userObject from '../../users'
+import { user } from '../../users'
+import client from '../../../database'
+import productObject from '../../product'
+import { product } from '../../product'
 
 const order_Object = new orderObject()
 const product_Object = new productObject()
@@ -108,7 +108,7 @@ describe('5 most popular products', () => {
     it(`Get Top 5 prdoucts`, async () => {
         const products = await product_Object.getTopProducts()
         // console.log(products);
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < products.length - 1; i++) {
             expect(products[i].quantity).toBeGreaterThan(
                 products[i + 1].quantity
             )

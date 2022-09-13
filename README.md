@@ -15,9 +15,11 @@
 #### 3- setUp database
 ##### start postgres database on port 5432
         db-migrate up 
-#### 4- start server
+#### 4- Build the project
+        npm run build
+#### 5- start server
         npm run start
-#### 5- server listen on port 3000
+#### 6- server listen on port 3000
         -> localhost:3000
 ## For Testing
 #### To test every action happened to database

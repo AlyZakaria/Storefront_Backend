@@ -36,9 +36,10 @@ export default class productHandler {
                 category
             )
             res.send(newProduct)
-            next()
         } catch (e) {
             res.send('Cannot create Product')
+        } finally {
+            next()
         }
     }
     show = async (
@@ -90,6 +91,7 @@ export default class productHandler {
             //console.log(getProducts);
             res.json(getProducts)
         } catch (e) {
+            res.status(404)
             res.send('Product with this kind of category not found')
         } finally {
             next()

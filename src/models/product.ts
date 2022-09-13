@@ -127,7 +127,7 @@ class productObject {
 
     private getTopFive(map: Map<number, number>): topProduct[] {
         let topFive: topProduct[] = []
-        let c = 0
+        let c = 1
         for (let [key, value] of map) {
             let product: topProduct = { product_id: key, quantity: value }
             topFive.push(product)

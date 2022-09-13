@@ -13,9 +13,7 @@ const verifyUser = (
         const authorizationHeader = req.headers.authorization as string
         const token = authorizationHeader.split(' ')[1]
         const verified = parseJwt(token)
-        //console.log(verified.id);
         if (verified.id === user_id) {
-            console.log('done')
             next()
         } else throw new Error()
     } catch (e) {

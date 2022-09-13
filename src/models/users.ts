@@ -53,15 +53,15 @@ export default class userObject {
         }
     }
     async create(
-        firstName: string,
-        secondName: string,
+        firstname: string,
+        secondname: string,
         password: string
     ): Promise<user> {
         const conn = await client.connect()
         try {
             const hash = bcrypt.hashSync(password + pepper, Number(saltRounds))
-            const query = `INSERT INTO users (firstname ,secondname, password) Values 
-            ('${firstName}' , '${secondName}', '${hash}' ) Returning *`
+            const query = `INSERT INTO users (firstname ,secondname, password) VALUES 
+            ('${firstname}' , '${secondname}', '${hash}' ) RETURNING *`
             const newUser = await conn.query(query)
             return newUser.rows[0]
         } catch (e) {
