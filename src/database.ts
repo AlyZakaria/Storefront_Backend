@@ -10,6 +10,7 @@ const {
     POSTGRES_TEST_DB,
     POSTGRES_USER,
     POSTGRES_PASSWORD,
+    POSTGRES_PORT,
     BCRYPT_PASSWORD,
     SALT_ROUNDS,
     TOKEN,
@@ -19,6 +20,7 @@ let client = new Pool()
 if (ENV === 'dev') {
     client = new Pool({
         host: POSTGRES_HOST,
+        port: Number(POSTGRES_PORT),
         database: POSTGRES_DB,
         user: POSTGRES_USER,
         password: POSTGRES_PASSWORD,
@@ -26,6 +28,7 @@ if (ENV === 'dev') {
 } else {
     client = new Pool({
         host: POSTGRES_HOST,
+        port: Number(POSTGRES_PORT),
         database: POSTGRES_TEST_DB,
         user: POSTGRES_USER,
         password: POSTGRES_PASSWORD,

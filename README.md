@@ -1,4 +1,18 @@
 # Storefront_Backend
+
+## Database Setup
+->  Start postgres database on port 5432
+1. you need to open sql shell (psql) 
+2. if you have different password you can put in .env file instead of my password in variable called ***POSTGRES_PASSWORD*** 
+3. write the following queries to create databases.
+#### Create database called store_database.
+4.      CREATE DATABASE store_database;
+#### Create database called storetest_database for testing.
+5.      CREATE DATABASE storetest_database;
+#### connect to store_database database.
+6.      \c store_database
+
+
 ## project Setup
 #### 1- Install Dependencies:
         npm install
