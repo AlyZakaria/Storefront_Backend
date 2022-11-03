@@ -3,7 +3,7 @@
 ## Database Setup
 ->  Start postgres database on port 5432
 1. you need to open sql shell (psql) 
-2. if you have different password you can put in .env file instead of my password in variable called ***POSTGRES_PASSWORD*** 
+2. if you have different password you can put in .env file instead of my password in variable called ***POSTGRES_PASSWORD*** .
 3. write the following queries to create databases.
 #### Create database called store_database.
 4.      CREATE DATABASE store_database;
